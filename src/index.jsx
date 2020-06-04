@@ -14,7 +14,7 @@ const init = (gon) => {
   });
 
   store.dispatch(fetchData(gon));
-  const socket = io();
+  // const socket = io();
 
   // socket.on('newOrder', ({ data }) => {
   //   store.dispatch(orderReceived(data));
@@ -23,7 +23,7 @@ const init = (gon) => {
 
   ReactDOM.render(
     <Provider store={store}>
-        <App />
+      <App />
     </Provider>,
     document.getElementById('delivery'),
   );

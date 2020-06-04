@@ -1,5 +1,5 @@
 {
-  "name": "pizza task",
+  "name": "pizza-task",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
@@ -18,7 +18,7 @@
     "postinstall": "npm run build"
   },
   "repository": {
-    "type": "git",
+    "type": "git"
   },
   "author": "valerr",
   "license": "ISC",

@@ -1,5 +1,4 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { remove } from 'lodash';
 import * as actions from '../actions';
 
 const reducer = createReducer({}, {
@@ -11,6 +10,10 @@ const reducer = createReducer({}, {
       orders,
       cart: [],
     };
+  },
+  [actions.addToCart]: (state, action) => {
+    const item = action.payload;
+    state.cart.push(item);
   },
 });
 
