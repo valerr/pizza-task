@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Cart from './Cart';
 import { addToCart } from '../actions';
 
-export const Items = () => {
+const Items = () => {
   const dispatch = useDispatch();
 
   const addItemToCart = (item) => {
@@ -17,7 +17,7 @@ export const Items = () => {
       <div className="d-flex flex-wrap">
         {menu.map((item) => (
           <div key={item.id} className="card" style={{ width: '18rem' }}>
-            <img className="card-img-top" src={item.imageLink} style={{ height: '18rem' }} />
+            <img className="card-img-top" src={item.imageLink} style={{ height: '18rem' }} alt="pizza" />
             <div className="card-body">
               <h4 className="card-text">
                 {item.name}
@@ -25,6 +25,7 @@ export const Items = () => {
               <button type="button" onClick={() => addItemToCart(item)} className="btn btn-warning">
                 +
                 {item.price}
+                $
               </button>
             </div>
           </div>

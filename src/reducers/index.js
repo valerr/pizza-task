@@ -15,6 +15,9 @@ const reducer = createReducer({}, {
     const item = action.payload;
     state.cart.push(item);
   },
+  [actions.orderReceived]: (state, { payload: { attributes } }) => {
+    state.orders.push(attributes);
+  },
 });
 
 export default reducer;

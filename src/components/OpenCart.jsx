@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DeliveryModal from './DeliveryModal';
 
 const OpenCart = ({ hideModal, goods }) => {
   const [modalType, setModalType] = useState('open');
@@ -7,35 +8,61 @@ const OpenCart = ({ hideModal, goods }) => {
     setModalType('delivery');
   };
 
+  const itemsSum = goods.reduce((acc, item) => acc + Number(item.price), 0);
+
+  const deliveryCost = 5;
+
   if (modalType === 'open') {
     return (
       <div className="modal d-block text-left">
         <section className="modal-main">
-          <h3 className="text-center m-2"> Cart </h3>
-          <ul className="list-group text-left">
+          <div className="m-3">
+            <h5 className="text-center d-inline"> Cart </h5>
+            <button type="button" onClick={hideModal} className="close">x</button>
             {goods.length === 0 ? <p>Cart is empty</p> : goods.map((i) => (
-              <li className="list-group-item" key={i.id}>
-                {i.name}
-                {' '}
-                {i.price}
-              </li>
+              <dl className="row mt-3" key={i.id}>
+                <dt className="col-sm-3">{i.name}</dt>
+                <dd className="col-sm-9">
+                  {i.price}
+                  $
+                </dd>
+              </dl>
             ))}
-          </ul>
-          <button type="button" className="btn btn-primary m-3" onClick={hideModal}>close</button>
-          <button type="button" className="btn btn-primary m-3" onClick={handleSubmit}>proceed</button>
+            <hr />
+            <dl className="row">
+              <dt className="col-sm-3">Subtotal:</dt>
+              <dd className="col-sm-9">
+                {itemsSum}
+                $
+              </dd>
+              <dt className="col-sm-3">
+                +
+                delivery cost:
+              </dt>
+              <dd className="col-sm-9">
+                {deliveryCost}
+                $
+              </dd>
+              <dt className="col-sm-3">
+                Total:
+              </dt>
+              <dd className="col-sm-9">
+                {deliveryCost + itemsSum}
+                $
+              </dd>
+            </dl>
+            <button type="button" disabled={goods.length === 0} className="btn btn-primary m-3" onClick={handleSubmit}>proceed</button>
+          </div>
         </section>
       </div>
     );
-  } if (modalType === 'delivery') {
-    return (
-      <div className="modal d-block text-left">
-        <section className="modal-main">
-          <p>Ok!</p>
-          <button type="button" className="btn btn-primary m-3" onClick={hideModal}>close</button>
-        </section>
-      </div>
-    );
-  }
+  } return (
+    <div className="modal d-block text-left">
+      <section className="modal-main">
+        <DeliveryModal hideModal={hideModal} goods={goods} />
+      </section>
+    </div>
+  );
 };
 
 export default OpenCart;
