@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { size } from 'lodash';
 import OpenCart from './OpenCart';
 
 const Cart = () => {
   const goods = useSelector((state) => state.cart);
+  const goodsCount = goods.reduce((acc, elem) => acc + elem.quantity, 0);
 
   const renderModal = (modal, hideModal) => {
     if (modal.type === null) return null;
@@ -21,7 +21,7 @@ const Cart = () => {
     <div className="d-block text-right mt-1">
       <button type="button" onClick={() => showModal('open')} className="btn btn-light">
         <img src="https://img.icons8.com/metro/26/000000/shopping-cart.png" alt="cart" />
-        <span className="badge badge-secondary">{size(goods)}</span>
+        <span className="badge badge-secondary">{goodsCount}</span>
       </button>
       {renderModal(modal, hideModal)}
     </div>

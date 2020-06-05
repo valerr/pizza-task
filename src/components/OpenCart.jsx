@@ -9,8 +9,8 @@ const OpenCart = ({ hideModal, goods }) => {
   };
 
   const itemsSum = (currency) => (currency === 'dollars'
-    ? goods.reduce((acc, item) => acc + item.price.dollars, 0)
-    : goods.reduce((acc, item) => acc + item.price.euros, 0));
+    ? goods.reduce((acc, elem) => acc + elem.item.price.dollars * elem.quantity, 0)
+    : goods.reduce((acc, elem) => acc + elem.item.price.euros * elem.quantity, 0));
 
 
   const dollarsCost = itemsSum('dollars');
@@ -25,53 +25,28 @@ const OpenCart = ({ hideModal, goods }) => {
           <div className="m-3">
             <h5 className="text-center d-inline"> Cart </h5>
             <button type="button" onClick={hideModal} className="close">x</button>
-            {goods.length === 0 ? <p>Cart is empty</p> : goods.map((i) => (
-              <dl className="row mt-3" key={i.id}>
-                <dt className="col-sm-3">{i.name}</dt>
-                <dd className="col-sm-4">
-                  {i.price.dollars}
-                  $
-                </dd>
-                <dd className="col-sm-4">
-                  {i.price.euros}
-                  €
+            {goods.length === 0 ? <p>Cart is empty</p> : goods.map((elem) => (
+              <dl className="row mt-3" key={elem.item.id}>
+                <dt className="col-sm-3">{elem.item.name}</dt>
+                <dd className="col-sm-1">{`${elem.item.price.dollars}$`}</dd>
+                <dd className="col-sm-2">{`${elem.item.price.euros}€`}</dd>
+                <dd className="col-sm-2">{elem.quantity > 1 && `x${elem.quantity}`}</dd>
+                <dd className="col-sm-2">
+                  <span className="font-weight-bold">{`=${elem.quantity * elem.item.price.dollars}$`}</span>
                 </dd>
               </dl>
             ))}
             <hr />
             <dl className="row">
               <dt className="col-sm-3">Subtotal:</dt>
-              <dd className="col-sm-4">
-                {dollarsCost}
-                $
-              </dd>
-              <dd className="col-sm-4">
-                {eurosCost}
-                €
-              </dd>
-              <dt className="col-sm-3">
-                +
-                delivery cost:
-              </dt>
-              <dd className="col-sm-4">
-                {deliveryCost}
-                $
-              </dd>
-              <dd className="col-sm-4">
-                {deliveryCost}
-                €
-              </dd>
-              <dt className="col-sm-3">
-                Total:
-              </dt>
-              <dd className="col-sm-4">
-                {deliveryCost + dollarsCost}
-                $
-              </dd>
-              <dd className="col-sm-4">
-                {deliveryCost + eurosCost}
-                €
-              </dd>
+              <dd className="col-sm-1">{`${dollarsCost}$`}</dd>
+              <dd className="col-sm-6">{`${eurosCost}€`}</dd>
+              <dt className="col-sm-3">+ delivery cost:</dt>
+              <dd className="col-sm-1">{`${deliveryCost}$`}</dd>
+              <dd className="col-sm-6">{`${deliveryCost}€`}</dd>
+              <dt className="col-sm-3">Total:</dt>
+              <dd className="col-sm-1">{`${deliveryCost + dollarsCost}$`}</dd>
+              <dd className="col-sm-6">{`${deliveryCost + eurosCost}€`}</dd>
             </dl>
             <button type="button" disabled={goods.length === 0} className="btn btn-primary m-3" onClick={handleSubmit}>proceed</button>
           </div>

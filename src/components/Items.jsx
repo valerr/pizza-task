@@ -6,11 +6,12 @@ import { addToCart } from '../actions';
 const Items = () => {
   const dispatch = useDispatch();
 
-  const addItemToCart = (item) => {
-    dispatch(addToCart(item));
+  const addItemToCart = (id) => {
+    dispatch(addToCart(id));
   };
 
   const menu = useSelector((state) => state.pizzas);
+
   return (
     <>
       <Cart />
@@ -22,7 +23,7 @@ const Items = () => {
               <h4 className="card-text">
                 {item.name}
               </h4>
-              <button type="button" onClick={() => addItemToCart(item)} className="btn btn-warning">
+              <button type="button" onClick={() => addItemToCart(item.id)} className="btn btn-warning">
                 +
                 &nbsp;
                 {item.price.dollars}

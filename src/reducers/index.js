@@ -12,8 +12,15 @@ const reducer = createReducer({}, {
     };
   },
   [actions.addToCart]: (state, action) => {
-    const item = action.payload;
-    state.cart.push(item);
+    const id = action.payload;
+    const itemInCart = state.cart.find(({ item }) => item.id === id);
+    if (itemInCart) {
+      itemInCart.quantity += 1;
+    } else {
+      const itemInMenu = state.pizzas.find((elem) => elem.id === id);
+      const element = { item: itemInMenu, quantity: 1 };
+      state.cart.push(element);
+    }
   },
   [actions.orderReceived]: (state, { payload: { attributes } }) => {
     state.orders.push(attributes);
