@@ -24,8 +24,12 @@ const Items = () => {
               </h4>
               <button type="button" onClick={() => addItemToCart(item)} className="btn btn-warning">
                 +
-                {item.price}
+                &nbsp;
+                {item.price.dollars}
                 $
+                &nbsp;
+                {item.price.euros}
+                €
               </button>
             </div>
           </div>

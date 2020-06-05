@@ -19,9 +19,9 @@ const Cart = () => {
 
   return (
     <div className="d-block text-right mt-1">
-      <button type="button" onClick={() => showModal('open')} className="btn btn-success">
-        Cart:
-        {size(goods)}
+      <button type="button" onClick={() => showModal('open')} className="btn btn-light">
+        <img src="https://img.icons8.com/metro/26/000000/shopping-cart.png" alt="cart" />
+        <span className="badge badge-secondary">{size(goods)}</span>
       </button>
       {renderModal(modal, hideModal)}
     </div>
