@@ -22,6 +22,16 @@ const reducer = createReducer({}, {
       state.cart.push(element);
     }
   },
+  [actions.removeFromCart]: (state, action) => {
+    const id = action.payload;
+    const itemInCart = state.cart.find(({ item }) => item.id === id);
+    if (itemInCart.quantity > 1) {
+      itemInCart.quantity -= 1;
+    } else {
+      const index = state.cart.indexOf(itemInCart);
+      state.cart.splice(index, 1);
+    }
+  },
   [actions.orderReceived]: (state) => {
     state.cart.length = 0; // eslint-disable-line no-param-reassign
   },

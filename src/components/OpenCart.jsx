@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import DeliveryModal from './DeliveryModal';
+import { removeFromCart } from '../actions';
 import i18next from '../locales/translate';
 
 export const itemsSum = (currency, goods) => (currency === 'dollars'
@@ -8,9 +10,14 @@ export const itemsSum = (currency, goods) => (currency === 'dollars'
 
 export const OpenCart = ({ hideModal, goods }) => {
   const [modalType, setModalType] = useState('open');
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
     setModalType('delivery');
+  };
+
+  const removeItem = (id) => {
+    dispatch(removeFromCart(id));
   };
 
   const dollarsCost = itemsSum('dollars', goods);
@@ -27,13 +34,12 @@ export const OpenCart = ({ hideModal, goods }) => {
             <button type="button" onClick={hideModal} className="close">x</button>
             {goods.length === 0 ? <p>Cart is empty</p> : goods.map((elem) => (
               <dl className="row mt-3" key={elem.item.id}>
-                <dt className="col-sm-3">{i18next.t(`name.${elem.item.textId}`)}</dt>
-                <dd className="col-sm-1">{`${elem.item.price.dollars}$`}</dd>
-                <dd className="col-sm-2">{`${elem.item.price.euros}€`}</dd>
-                <dd className="col-sm-2">{elem.quantity > 1 && `x${elem.quantity}`}</dd>
-                <dd className="col-sm-2">
-                  <span className="font-weight-bold">{`=${elem.quantity * elem.item.price.dollars}$`}</span>
-                </dd>
+                <dt className="col-sm-3 mt-2">{i18next.t(`name.${elem.item.textId}`)}</dt>
+                <dd className="col-sm-1 mt-2">{`${elem.item.price.dollars}$`}</dd>
+                <dd className="col-sm-2 mt-2">{`${elem.item.price.euros}€`}</dd>
+                <dd className="col-sm-2 mt-2">{elem.quantity > 1 && `x${elem.quantity}`}</dd>
+                <dd className="col-sm-2 mt-2 font-weight-bold">{`=${elem.quantity * elem.item.price.dollars}$`}</dd>
+                <button onClick={() => removeItem(elem.item.id)} type="button" className="btn bg-white btn-sm">&#10006;</button>
               </dl>
             ))}
             <hr />
@@ -45,8 +51,8 @@ export const OpenCart = ({ hideModal, goods }) => {
               <dd className="col-sm-1">{`${deliveryCost}$`}</dd>
               <dd className="col-sm-6">{`${deliveryCost}€`}</dd>
               <dt className="col-sm-3">Total:</dt>
-              <dd className="col-sm-1">{`${deliveryCost + dollarsCost}$`}</dd>
-              <dd className="col-sm-6">{`${deliveryCost + eurosCost}€`}</dd>
+              <dd className="col-sm-1 font-weight-bold">{`${deliveryCost + dollarsCost}$`}</dd>
+              <dd className="col-sm-6 font-weight-bold">{`${deliveryCost + eurosCost}€`}</dd>
             </dl>
             <button type="button" disabled={goods.length === 0} className="btn btn-primary m-3" onClick={handleSubmit}>proceed</button>
           </div>

@@ -6,6 +6,8 @@ export const fetchData = createAction('fetchData');
 
 export const addToCart = createAction('addToCart');
 
+export const removeFromCart = createAction('removeFromCart');
+
 export const orderReceived = createAction('orderReceived');
 
 export const historyReceived = createAction('historyReceived');
