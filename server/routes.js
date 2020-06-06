@@ -5,23 +5,104 @@ import _ from 'lodash';
 const getNextId = () => Number(_.uniqueId());
 
 const buildState = (defaultState) => {
-
   const state = {
-    pizzas: [
-      { id: getNextId(), name: 'Cheese', price: '7$', imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg' },
-      { id: getNextId(), name: 'Pepperoni', price: '8$', imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg' },
-      { id: getNextId(), name: 'Alfredo', price: '8$', imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg'},
-      { id: getNextId(), name: 'Texas', price: '9$', imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg'},
-      { id: getNextId(), name: 'Spicy', price: '8$', imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg'},
-      { id: getNextId(), name: 'Vegetarian', price: '8$', imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg'},
-      { id: getNextId(), name: 'Pineapple', price: '8$', imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg'},
-      { id: getNextId(), name: 'Margherita', price: '6$', imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg'},
+    menu: [
+      {
+        id: getNextId(),
+        textId: 'pizza_cheese_1',
+        type: 'pizza',
+        price: {
+          dollars: 7,
+          euros: 6,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'pizza_pepperoni_1',
+        type: 'pizza',
+        price: {
+          dollars: 8,
+          euros: 7,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'pizza_alfredo_1',
+        type: 'pizza',
+        price: {
+          dollars: 8,
+          euros: 7,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'pizza_meat_1',
+        type: 'pizza',
+        price: {
+          dollars: 7,
+          euros: 6,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'pizza_spicy_1',
+        type: 'pizza',
+        price: {
+          dollars: 9,
+          euros: 8,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'pizza_vegetarian_1',
+        type: 'pizza',
+        price: {
+          dollars: 10,
+          euros: 9,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'pizza_hawaiian_1',
+        type: 'pizza',
+        price: {
+          dollars: 11,
+          euros: 10,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'pizza_margherita_1',
+        type: 'pizza',
+        price: {
+          dollars: 9,
+          euros: 8,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'drink_milkshake_1',
+        type: 'drink',
+        price: {
+          dollars: 9,
+          euros: 8,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'drink_tea_1',
+        type: 'drink',
+        price: {
+          dollars: 9,
+          euros: 8,
+        },
+      },
     ],
     orders: [],
   };
 
   if (defaultState.pizzas) {
-    state.pizzas.push(...defaultState.pizzas);
+    state.menu.push(...defaultState.pizzas);
   }
   if (defaultState.orders) {
     state.orders.push(...defaultState.orders);
@@ -37,9 +118,9 @@ export default (app, io, defaultState = {}) => {
     .get('/', (_req, reply) => {
       reply.view('index.pug', { gon: state });
     })
-    .get('/api/v1/pizzas', (_req, reply) => {
-      const resources = state.pizzas.map((c) => ({
-        type: 'pizzas',
+    .get('/api/v1/menu', (_req, reply) => {
+      const resources = state.menu.map((c) => ({
+        type: 'menu',
         id: c.id,
         attributes: c,
       }));
@@ -48,10 +129,27 @@ export default (app, io, defaultState = {}) => {
       };
       reply.send(response);
     })
+    .get('/api/v1/orders/:id', (req, reply) => {
+      const userId = req.params.id;
+      const userOrders = state.orders.filter((c) => c.userId === userId);
+      const response = {
+        data: userOrders,
+      };
+      reply.send(response);
+    })
     .post('/api/v1/orders', (req, reply) => {
-      const { data: { attributes: { adress, items } } } = req.body;
+      const {
+        data: {
+          attributes: {
+            userId, address, name, items, date,
+          },
+        },
+      } = req.body;
       const orderData = {
-        adress,
+        date,
+        userId,
+        address,
+        name,
         id: getNextId(),
         items,
       };
@@ -60,12 +158,9 @@ export default (app, io, defaultState = {}) => {
       const data = {
         data: {
           type: 'orders',
-          id: order.id,
           attributes: orderData,
         },
       };
-
       reply.send(data);
-      io.emit('newOrder', data);
-    })
+    });
 };
