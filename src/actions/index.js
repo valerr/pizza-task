@@ -8,8 +8,22 @@ export const addToCart = createAction('addToCart');
 
 export const orderReceived = createAction('orderReceived');
 
-export const createOrder = (name, address, items) => async () => {
+export const historyReceived = createAction('historyReceived');
+
+export const createOrder = (name, address, items, userId, date) => async (dispatch) => {
   const path = routes.ordersPath();
-  const data = { attributes: { name, address, items } };
+  const data = {
+    attributes:
+    {
+      name, address, items, userId, date,
+    },
+  };
   await axios.post(path, { data });
+  dispatch(orderReceived({ data }));
+};
+
+export const getOrderHistory = ({ userId }) => async (dispatch) => {
+  const path = routes.orderPath(userId);
+  const { data } = await axios.get(path);
+  dispatch(historyReceived(data));
 };

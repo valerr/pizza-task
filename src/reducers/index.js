@@ -3,11 +3,11 @@ import * as actions from '../actions';
 
 const reducer = createReducer({}, {
   [actions.fetchData]: (state, action) => {
-    const { pizzas, orders } = action.payload;
+    const { pizzas } = action.payload;
     return {
       ...state,
       pizzas,
-      orders,
+      userOrders: [],
       cart: [],
     };
   },
@@ -22,8 +22,11 @@ const reducer = createReducer({}, {
       state.cart.push(element);
     }
   },
-  [actions.orderReceived]: (state, { payload: { attributes } }) => {
-    state.orders.push(attributes);
+  [actions.orderReceived]: (state) => {
+    state.cart.length = 0; // eslint-disable-line no-param-reassign
+  },
+  [actions.historyReceived]: (state, { payload: { data } }) => {
+    state.userOrders.push(...data);
   },
 });
 

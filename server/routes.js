@@ -111,9 +111,25 @@ export default (app, io, defaultState = {}) => {
       };
       reply.send(response);
     })
+    .get('/api/v1/orders/:id', (req, reply) => {
+      const userId = req.params.id;
+      const userOrders = state.orders.filter((c) => c.userId === userId);
+      const response = {
+        data: userOrders,
+      };
+      reply.send(response);
+    })
     .post('/api/v1/orders', (req, reply) => {
-      const { data: { attributes: { address, name, items } } } = req.body;
+      const {
+        data: {
+          attributes: {
+            userId, address, name, items, date,
+          },
+        },
+      } = req.body;
       const orderData = {
+        date,
+        userId,
         address,
         name,
         id: getNextId(),
@@ -127,8 +143,6 @@ export default (app, io, defaultState = {}) => {
           attributes: orderData,
         },
       };
-
       reply.send(data);
-      io.emit('newOrder', data);
     });
 };

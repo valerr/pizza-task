@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import DeliveryModal from './DeliveryModal';
 
-const OpenCart = ({ hideModal, goods }) => {
+export const itemsSum = (currency, goods) => (currency === 'dollars'
+  ? goods.reduce((acc, elem) => acc + elem.item.price.dollars * elem.quantity, 0)
+  : goods.reduce((acc, elem) => acc + elem.item.price.euros * elem.quantity, 0));
+
+export const OpenCart = ({ hideModal, goods }) => {
   const [modalType, setModalType] = useState('open');
 
   const handleSubmit = () => {
     setModalType('delivery');
   };
 
-  const itemsSum = (currency) => (currency === 'dollars'
-    ? goods.reduce((acc, elem) => acc + elem.item.price.dollars * elem.quantity, 0)
-    : goods.reduce((acc, elem) => acc + elem.item.price.euros * elem.quantity, 0));
-
-
-  const dollarsCost = itemsSum('dollars');
-  const eurosCost = itemsSum('euros');
+  const dollarsCost = itemsSum('dollars', goods);
+  const eurosCost = itemsSum('euros', goods);
 
   const deliveryCost = 5;
 
@@ -61,5 +60,3 @@ const OpenCart = ({ hideModal, goods }) => {
     </div>
   );
 };
-
-export default OpenCart;

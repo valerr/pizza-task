@@ -20,9 +20,7 @@ const Items = () => {
           <div key={item.id} className="card" style={{ width: '18rem' }}>
             <img className="card-img-top" src={item.imageLink} style={{ height: '18rem' }} alt="pizza" />
             <div className="card-body">
-              <h4 className="card-text">
-                {item.name}
-              </h4>
+              <h4 className="card-text">{item.name}</h4>
               <button type="button" onClick={() => addItemToCart(item.id)} className="btn btn-warning">
                 +
                 &nbsp;

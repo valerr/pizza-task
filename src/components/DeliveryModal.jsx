@@ -1,14 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { createOrder } from '../actions';
+import Context from '../Context';
 
 const DeliveryModal = ({ hideModal, goods }) => {
   const dispatch = useDispatch();
+  const userId = useContext(Context);
+  const date = Date(Date.now()).toString();
 
   const handleSubmit = async (values) => {
-    dispatch(createOrder(`${values.firstName}${values.lastName}`, values.address, goods));
+    dispatch(createOrder(`${values.firstName}${values.lastName}`, values.address, goods, userId, date));
   };
 
 
