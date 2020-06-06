@@ -9,75 +9,67 @@ const buildState = (defaultState) => {
     pizzas: [
       {
         id: getNextId(),
-        name: 'Cheese',
+        textId: 'pizza_cheese_1',
         price: {
           dollars: 7,
           euros: 6,
         },
-        imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg',
       },
       {
         id: getNextId(),
-        name: 'Pepperoni',
+        textId: 'pizza_pepperoni_1',
         price: {
           dollars: 8,
           euros: 7,
         },
-        imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg',
       },
       {
         id: getNextId(),
-        name: 'Alfredo',
+        textId: 'pizza_alfredo_1',
         price: {
           dollars: 8,
           euros: 7,
         },
-        imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg',
       },
       {
         id: getNextId(),
-        name: 'Texas',
+        textId: 'pizza_meat_1',
         price: {
           dollars: 7,
           euros: 6,
         },
-        imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg',
       },
       {
         id: getNextId(),
-        name: 'Spicy',
+        textId: 'pizza_spicy_1',
         price: {
           dollars: 9,
           euros: 8,
         },
-        imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg',
       },
       {
         id: getNextId(),
-        name: 'Vegetarian',
+        textId: 'pizza_vegetarian_1',
         price: {
           dollars: 10,
           euros: 9,
         },
-        imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg',
       },
       {
         id: getNextId(),
-        name: 'Pineapple',
+        textId: 'pizza_hawaiian_1',
         price: {
           dollars: 11,
           euros: 10,
         },
-        imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg',
       },
       {
         id: getNextId(),
-        name: 'Margherita',
+        textId: 'pizza_margherita_1',
         price: {
           dollars: 9,
           euros: 8,
         },
-        imageLink: 'https://img05.rl0.ru/eda/c620x415i/s2.eda.ru/StaticContent/Photos/120131085053/171027192707/p_O.jpg',
       },
     ],
     orders: [],

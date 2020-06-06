@@ -2,12 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { uniqueId } from 'lodash';
 import { itemsSum } from './OpenCart';
+import i18next from '../locales/translate';
 
 const OrderHistory = ({ hideModal }) => {
   const userOrders = useSelector((state) => state.userOrders);
 
   const orders = (elem) => {
-    const list = elem.items.map((i) => i.item.name);
+    const list = elem.items.map((i) => i18next.t(`name.${i.item.textId}`));
     return list.join(', ');
   };
 
