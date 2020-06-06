@@ -3,10 +3,11 @@ import * as actions from '../actions';
 
 const reducer = createReducer({}, {
   [actions.fetchData]: (state, action) => {
-    const { pizzas } = action.payload;
+    const { menu } = action.payload;
     return {
       ...state,
-      pizzas,
+      menu,
+      currentMenuSection: 'pizzas',
       userOrders: [],
       cart: [],
     };
@@ -17,7 +18,7 @@ const reducer = createReducer({}, {
     if (itemInCart) {
       itemInCart.quantity += 1;
     } else {
-      const itemInMenu = state.pizzas.find((elem) => elem.id === id);
+      const itemInMenu = state.menu.find((elem) => elem.id === id);
       const element = { item: itemInMenu, quantity: 1 };
       state.cart.push(element);
     }
@@ -32,6 +33,12 @@ const reducer = createReducer({}, {
       state.cart.splice(index, 1);
     }
   },
+  [actions.setCurrentMenuSection]: (state, { payload: { type } }) => (
+    {
+      ...state,
+      currentMenuSection: type,
+    }
+  ),
   [actions.orderReceived]: (state) => {
     state.cart.length = 0; // eslint-disable-line no-param-reassign
   },

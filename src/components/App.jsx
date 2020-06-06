@@ -1,11 +1,12 @@
 import React from 'react';
 import Items from './Items';
+import Menu from './Menu';
 
 const App = () => (
-  <div className="row pb-3">
-    <div className="col-1 border-right">
+  <div className="row h-100 pb-3">
+    <div className="col-2 border-right">
       <div className="d-flex mb-2 mt-2">
-        <h5>Contacts</h5>
+        <Menu />
       </div>
     </div>
     <div className="col bg-white">

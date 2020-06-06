@@ -33,3 +33,12 @@
   transform: translate(-50%,-50%);
   overflow-y: scroll;
 }
+
+.bg-active {
+  background-color:  #f0b35b;
+}
+
+btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: none;
+  }

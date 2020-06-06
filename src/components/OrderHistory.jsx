@@ -8,7 +8,7 @@ const OrderHistory = ({ hideModal }) => {
   const userOrders = useSelector((state) => state.userOrders);
 
   const orders = (elem) => {
-    const list = elem.items.map((i) => i18next.t(`name.${i.item.textId}`));
+    const list = elem.items.map((i) => `${i18next.t(`name.${i.item.textId}`)} ${i.item.type}`);
     return list.join(', ');
   };
 

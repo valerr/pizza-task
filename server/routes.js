@@ -6,10 +6,11 @@ const getNextId = () => Number(_.uniqueId());
 
 const buildState = (defaultState) => {
   const state = {
-    pizzas: [
+    menu: [
       {
         id: getNextId(),
         textId: 'pizza_cheese_1',
+        type: 'pizza',
         price: {
           dollars: 7,
           euros: 6,
@@ -18,6 +19,7 @@ const buildState = (defaultState) => {
       {
         id: getNextId(),
         textId: 'pizza_pepperoni_1',
+        type: 'pizza',
         price: {
           dollars: 8,
           euros: 7,
@@ -26,6 +28,7 @@ const buildState = (defaultState) => {
       {
         id: getNextId(),
         textId: 'pizza_alfredo_1',
+        type: 'pizza',
         price: {
           dollars: 8,
           euros: 7,
@@ -34,6 +37,7 @@ const buildState = (defaultState) => {
       {
         id: getNextId(),
         textId: 'pizza_meat_1',
+        type: 'pizza',
         price: {
           dollars: 7,
           euros: 6,
@@ -42,6 +46,7 @@ const buildState = (defaultState) => {
       {
         id: getNextId(),
         textId: 'pizza_spicy_1',
+        type: 'pizza',
         price: {
           dollars: 9,
           euros: 8,
@@ -50,6 +55,7 @@ const buildState = (defaultState) => {
       {
         id: getNextId(),
         textId: 'pizza_vegetarian_1',
+        type: 'pizza',
         price: {
           dollars: 10,
           euros: 9,
@@ -58,6 +64,7 @@ const buildState = (defaultState) => {
       {
         id: getNextId(),
         textId: 'pizza_hawaiian_1',
+        type: 'pizza',
         price: {
           dollars: 11,
           euros: 10,
@@ -66,6 +73,25 @@ const buildState = (defaultState) => {
       {
         id: getNextId(),
         textId: 'pizza_margherita_1',
+        type: 'pizza',
+        price: {
+          dollars: 9,
+          euros: 8,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'drink_milkshake_1',
+        type: 'drink',
+        price: {
+          dollars: 9,
+          euros: 8,
+        },
+      },
+      {
+        id: getNextId(),
+        textId: 'drink_tea_1',
+        type: 'drink',
         price: {
           dollars: 9,
           euros: 8,
@@ -76,7 +102,7 @@ const buildState = (defaultState) => {
   };
 
   if (defaultState.pizzas) {
-    state.pizzas.push(...defaultState.pizzas);
+    state.menu.push(...defaultState.pizzas);
   }
   if (defaultState.orders) {
     state.orders.push(...defaultState.orders);
@@ -92,9 +118,9 @@ export default (app, io, defaultState = {}) => {
     .get('/', (_req, reply) => {
       reply.view('index.pug', { gon: state });
     })
-    .get('/api/v1/pizzas', (_req, reply) => {
-      const resources = state.pizzas.map((c) => ({
-        type: 'pizzas',
+    .get('/api/v1/menu', (_req, reply) => {
+      const resources = state.menu.map((c) => ({
+        type: 'menu',
         id: c.id,
         attributes: c,
       }));

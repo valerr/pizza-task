@@ -12,6 +12,8 @@ export const orderReceived = createAction('orderReceived');
 
 export const historyReceived = createAction('historyReceived');
 
+export const setCurrentMenuSection = createAction('setCurrentMenuSection');
+
 export const createOrder = (name, address, items, userId, date) => async (dispatch) => {
   const path = routes.ordersPath();
   const data = {
