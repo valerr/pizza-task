@@ -27,11 +27,14 @@
   position:fixed;
   background: white;
   width: 50%;
-  height: auto;
+  height: 60%;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .bg-active {
@@ -63,7 +66,11 @@ html, body{ height:100%; margin:0; }
 body{
   display:flex;
   flex-direction:column;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
+
 
 footer{
   margin-top:auto;
