@@ -9,6 +9,7 @@ import Delivery from './Delivery';
 const Modals = () => {
   const goods = useSelector((state) => state.cart);
   const goodsCount = goods.reduce((acc, elem) => acc + elem.quantity, 0);
+  const currentCurrency = useSelector((state) => state.currentCurrency);
   const dispatch = useDispatch();
   const userId = useContext(Context);
 
@@ -41,14 +42,14 @@ const Modals = () => {
   };
 
   return (
-    <div className="d-block text-right mt-1">
-      <button onClick={() => getHistory()} type="button" className="btn btn-warning">My orders</button>
+    <>
+      <button onClick={() => getHistory(currentCurrency)} type="button" className="btn btn-warning">My orders</button>
       <button type="button" onClick={() => showModal('openCart')} className="btn btn-light">
         <img src="https://img.icons8.com/metro/26/000000/shopping-cart.png" alt="cart" />
         <span className="badge badge-secondary">{goodsCount}</span>
       </button>
       {renderModal()}
-    </div>
+    </>
   );
 };
 

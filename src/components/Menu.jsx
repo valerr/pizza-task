@@ -24,14 +24,14 @@ const Menu = () => {
         </button>
       </div>
     </li>
-  )
+  );
 
   return (
     <>
       <ul className="nav flex-column nav-pills nav-fill w-100">
         <h5>Menu</h5>
-          {renderMenuItem('pizzas')}
-          {renderMenuItem('drinks')}
+        {renderMenuItem('pizzas')}
+        {renderMenuItem('drinks')}
       </ul>
     </>
   );

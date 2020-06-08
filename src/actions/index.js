@@ -14,6 +14,8 @@ export const historyReceived = createAction('historyReceived');
 
 export const setCurrentMenuSection = createAction('setCurrentMenuSection');
 
+export const setCurrentCurrency = createAction('setCurrentCurrency');
+
 export const createOrder = (name, address, items, userId, date) => async (dispatch) => {
   const path = routes.ordersPath();
   const data = {

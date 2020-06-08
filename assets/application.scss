@@ -40,7 +40,9 @@ body{
   position:fixed;
   background: white;
   width: 50%;
-  height: 60%;
+  height: auto;
+  max-height: 80%;
+  min-height: 20%;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
@@ -60,11 +62,15 @@ btn.focus, .btn:focus {
   }
 
 .bg-pizza {
-  padding: 2rem;
+  padding: 1rem;
   background-color:  #f97106;
   background-image: linear-gradient(to left, rgba(245, 246, 252, 0), rgba(245, 205, 144, 1)),
     url(header.jpg);
   background-size: cover;
+}
+
+.logo {
+  height: 5rem;
 }
 
 .footer {
