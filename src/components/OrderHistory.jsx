@@ -8,9 +8,24 @@ const OrderHistory = ({ hideModal }) => {
   const userOrders = useSelector((state) => state.userOrders);
 
   const orders = (elem) => {
-    const list = elem.items.map((i) => `${i18next.t(`name.${i.item.textId}`)} ${i.item.type}`);
+    const list = elem.items.map((i) => `${i18next.t(`name.${i.item.textId}`)} ${i.item.type} x${i.quantity}`);
     return list.join(', ');
   };
+
+  const renderHistory = () => (
+    userOrders.map((elem) => (
+      <dl key={uniqueId()} className="row mt-3">
+        <dt className="col-sm-3">Date</dt>
+        <dd className="col-sm-9">{elem.date}</dd>
+        <dt className="col-sm-3">Address</dt>
+        <dd className="col-sm-9">{elem.address}</dd>
+        <dt className="col-sm-3">Goods</dt>
+        <dd className="col-sm-9">{orders(elem)}</dd>
+        <dt className="col-sm-3">Total sum</dt>
+        <dd className="col-sm-9">{`${itemsSum('dollars', elem.items)}$`}</dd>
+      </dl>
+    ))
+  );
 
   return (
     <div className="modal d-block text-left">
@@ -18,18 +33,7 @@ const OrderHistory = ({ hideModal }) => {
         <div className="m-3">
           <h5 className="text-center d-inline"> History </h5>
           <button type="button" onClick={hideModal} className="close">x</button>
-          {userOrders.map((elem) => (
-            <dl key={uniqueId()} className="row mt-3">
-              <dt className="col-sm-3">Date</dt>
-              <dd className="col-sm-9">{elem.date}</dd>
-              <dt className="col-sm-3">Address</dt>
-              <dd className="col-sm-9">{elem.address}</dd>
-              <dt className="col-sm-3">Goods</dt>
-              <dd className="col-sm-9">{orders(elem)}</dd>
-              <dt className="col-sm-3">Total sum</dt>
-              <dd className="col-sm-9">{`${itemsSum('dollars', elem.items)}$`}</dd>
-            </dl>
-          ))}
+          {userOrders.length > 0 ? renderHistory() : <p>Nothing here yet!</p>}
         </div>
       </section>
     </div>

@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { differenceWith, isEqual } from 'lodash';
 import * as actions from '../actions';
 
 const reducer = createReducer({}, {
@@ -43,7 +44,10 @@ const reducer = createReducer({}, {
     state.cart.length = 0; // eslint-disable-line no-param-reassign
   },
   [actions.historyReceived]: (state, { payload: { data } }) => {
-    state.userOrders.push(...data);
+    const ordersNotInState = differenceWith(data, state.userOrders, isEqual);
+    if (ordersNotInState.length) {
+      state.userOrders.push(...ordersNotInState);
+    }
   },
 });
 

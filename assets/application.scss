@@ -1,5 +1,18 @@
 @import '~bootstrap/scss/bootstrap';
 
+html, body {
+  height:100%;
+  margin:0;
+}
+
+body{
+  display:flex;
+  flex-direction:column;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .bg-navbar {
   background-color: #9b9ea21c;
 }
@@ -27,18 +40,36 @@
   position:fixed;
   background: white;
   width: 50%;
-  height: 80%;
+  height: 60%;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .bg-active {
-  background-color:  #f0b35b;
+  background-color:  #f97c08;
 }
 
 btn.focus, .btn:focus {
     outline: 0;
     box-shadow: none;
   }
+
+.bg-pizza {
+  padding: 2rem;
+  background-color:  #f97106;
+  background-image: linear-gradient(to left, rgba(245, 246, 252, 0), rgba(245, 205, 144, 1)),
+    url(header.jpg);
+  background-size: cover;
+}
+
+.footer {
+  background-color: #adcdec;
+  text-align: center;
+  padding: 0.5rem;
+  margin-top:auto;
+}
