@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Cart from './Cart';
+import Modals from './Modals';
 import { addToCart } from '../actions';
 import i18next from '../locales/translate';
 
@@ -42,7 +42,7 @@ const Items = () => {
 
   return (
     <>
-      <Cart />
+      <Modals />
       <div className="d-flex flex-wrap">
         {currentMenuSection === 'pizzas' ? renderItems(pizzas) : renderItems(drinks)}
       </div>

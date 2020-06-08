@@ -1,5 +1,18 @@
 @import '~bootstrap/scss/bootstrap';
 
+html, body {
+  height:100%;
+  margin:0;
+}
+
+body{
+  display:flex;
+  flex-direction:column;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .bg-navbar {
   background-color: #9b9ea21c;
 }
@@ -58,20 +71,5 @@ btn.focus, .btn:focus {
   background-color: #adcdec;
   text-align: center;
   padding: 0.5rem;
-  margin-top:auto;
-}
-
-html, body{ height:100%; margin:0; }
-
-body{
-  display:flex;
-  flex-direction:column;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-
-footer{
   margin-top:auto;
 }
