@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modals from './Modals';
+import CurrencySwitch from './CurrencySwitch';
 import { addToCart } from '../actions';
 import i18next from '../locales/translate';
 
@@ -19,6 +20,8 @@ const Items = () => {
 
   const drinks = menu.filter((i) => i.type === 'drink');
 
+  const curr = useSelector((state) => state.currentCurrency);
+
   const renderItems = (items) => (
     items.map((item) => (
       <div key={item.id} className="card m-1" style={{ width: '18rem', height: 'auto' }}>
@@ -29,11 +32,8 @@ const Items = () => {
           <button type="button" onClick={() => addItemToCart(item.id)} className="btn btn-warning">
             +
             &nbsp;
-            {item.price.dollars}
-            $
-            &nbsp;
-            {item.price.euros}
-            €
+            {item.price[curr]}
+            {curr === 'dollars' ? '$' : '€'}
           </button>
         </div>
       </div>
@@ -42,7 +42,10 @@ const Items = () => {
 
   return (
     <>
-      <Modals />
+      <div className="mt-1 text-right">
+        <CurrencySwitch />
+        <Modals />
+      </div>
       <div className="d-flex flex-wrap">
         {currentMenuSection === 'pizzas' ? renderItems(pizzas) : renderItems(drinks)}
       </div>

@@ -9,6 +9,7 @@ const reducer = createReducer({}, {
       ...state,
       menu,
       currentMenuSection: 'pizzas',
+      currentCurrency: 'dollars',
       userOrders: [],
       cart: [],
     };
@@ -40,6 +41,15 @@ const reducer = createReducer({}, {
       currentMenuSection: type,
     }
   ),
+  [actions.setCurrentCurrency]: (state) => {
+    const currency = state.currentCurrency === 'dollars' ? 'euros' : 'dollars';
+    return (
+      {
+        ...state,
+        currentCurrency: currency,
+      }
+    );
+  },
   [actions.orderReceived]: (state) => {
     state.cart.length = 0; // eslint-disable-line no-param-reassign
   },
