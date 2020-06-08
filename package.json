@@ -84,8 +84,11 @@
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
+    "file-loader": "^6.0.0",
+    "image-webpack-loader": "^6.0.0",
     "jest": "^25.2.3",
     "jest-cli": "^25.2.3",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "url-loader": "^4.1.0"
   }
 }
