@@ -69,8 +69,10 @@ btn.focus, .btn:focus {
   background-size: cover;
 }
 
-.logo {
-  height: 5rem;
+.logo{
+  height: 64px;
+  width: 64px;
+  background: url(pizza.png) no-repeat;
 }
 
 .footer {
