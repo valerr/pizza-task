@@ -12,33 +12,26 @@ const Menu = () => {
 
   const currentMenuSection = useSelector((state) => state.currentMenuSection);
 
+  const renderMenuItem = (type) => (
+    <li className={cn('nav-item row', { 'bg-active': currentMenuSection === type })}>
+      <div className="col-8 text-left">
+        <button
+          onClick={switchMenu(type)}
+          className="nav-link btn-block btn text-left"
+          type="button"
+        >
+          <div className="col-10 menu">{type}</div>
+        </button>
+      </div>
+    </li>
+  )
+
   return (
     <>
-
       <ul className="nav flex-column nav-pills nav-fill w-100">
         <h5>Menu</h5>
-        <li className={cn('nav-item row', { 'bg-active': currentMenuSection === 'pizzas' })}>
-          <div className="col-8 text-left">
-            <button
-              onClick={switchMenu('pizzas')}
-              className="nav-link btn-block btn text-left"
-              type="button"
-            >
-              <div className="col-10">Pizzas</div>
-            </button>
-          </div>
-        </li>
-        <li className={cn('nav-item row', { 'bg-active': currentMenuSection === 'drinks' })}>
-          <div className="col-8 text-left">
-            <button
-              onClick={switchMenu('drinks')}
-              className="nav-link btn-block btn text-left"
-              type="button"
-            >
-              <div className="col-10">Drinks</div>
-            </button>
-          </div>
-        </li>
+          {renderMenuItem('pizzas')}
+          {renderMenuItem('drinks')}
       </ul>
     </>
   );
