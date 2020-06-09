@@ -12,6 +12,7 @@ const Delivery = ({ hideModal, goods }) => {
 
   const handleSubmit = async (values) => {
     dispatch(createOrder(`${values.firstName}${values.lastName}`, values.address, goods, userId, date));
+    hideModal();
   };
 
 
